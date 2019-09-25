@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "swift-log",
+        "repositoryURL": "https://github.com/PDF-Archiver/swift-log.git",
+        "state": {
+          "branch": "master",
+          "revision": "a14b7d123502c33873bf3210a94ff901946eb646",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
