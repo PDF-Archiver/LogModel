@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum Environment: String, Codable {
+public enum AppEnvironment: String, Codable {
     case develop
     case testflight
     case production

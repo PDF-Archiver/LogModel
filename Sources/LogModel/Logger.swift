@@ -22,52 +22,42 @@ import Foundation
 //
 //===----------------------------------------------------------------------===//
 
-/// A `Logger` is the central type in `SwiftLog`. Its central function is to emit log messages using one of the methods
-/// corresponding to a log level.
+/// The log level.
 ///
-/// The most basic usage of a `Logger` is
-///
-///     logger.info("Hello World!")
-///
-public struct Logger {
+/// Log levels are ordered by their severity, with `.trace` being the least severe and
+/// `.critical` being the most severe.
+public enum LoggerLevel: String, Codable, CaseIterable {
+    /// Appropriate for messages that contain information only when debugging a program.
+    case trace
 
-    /// The log level.
+    /// Appropriate for messages that contain information normally of use only when
+    /// debugging a program.
+    case debug
+
+    /// Appropriate for informational messages.
+    case info
+
+    /// Appropriate for conditions that are not error conditions, but that may require
+    /// special handling.
+    case notice
+
+    /// Appropriate for messages that are not error conditions, but more severe than
+    /// `.notice`.
+    case warning
+
+    /// Appropriate for error conditions.
+    case error
+
+    /// Appropriate for critical error conditions that usually require immediate
+    /// attention.
     ///
-    /// Log levels are ordered by their severity, with `.trace` being the least severe and
-    /// `.critical` being the most severe.
-    public enum Level: String, Codable, CaseIterable {
-        /// Appropriate for messages that contain information only when debugging a program.
-        case trace
-
-        /// Appropriate for messages that contain information normally of use only when
-        /// debugging a program.
-        case debug
-
-        /// Appropriate for informational messages.
-        case info
-
-        /// Appropriate for conditions that are not error conditions, but that may require
-        /// special handling.
-        case notice
-
-        /// Appropriate for messages that are not error conditions, but more severe than
-        /// `.notice`.
-        case warning
-
-        /// Appropriate for error conditions.
-        case error
-
-        /// Appropriate for critical error conditions that usually require immediate
-        /// attention.
-        ///
-        /// When a `critical` message is logged, the logging backend (`LogHandler`) is free to perform
-        /// more heavy-weight operations to capture system state (such as capturing stack traces) to facilitate
-        /// debugging.
-        case critical
-    }
+    /// When a `critical` message is logged, the logging backend (`LogHandler`) is free to perform
+    /// more heavy-weight operations to capture system state (such as capturing stack traces) to facilitate
+    /// debugging.
+    case critical
 }
 
-extension Logger.Level {
+extension LoggerLevel {
     internal var naturalIntegralValue: Int {
         switch self {
         case .trace:
@@ -88,8 +78,8 @@ extension Logger.Level {
     }
 }
 
-extension Logger.Level: Comparable {
-    public static func < (lhs: Logger.Level, rhs: Logger.Level) -> Bool {
+extension LoggerLevel: Comparable {
+    public static func < (lhs: LoggerLevel, rhs: LoggerLevel) -> Bool {
         return lhs.naturalIntegralValue < rhs.naturalIntegralValue
     }
 }
