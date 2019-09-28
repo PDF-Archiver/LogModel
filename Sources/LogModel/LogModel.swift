@@ -10,9 +10,10 @@ import Foundation
 
 public struct LogModel: Codable, Hashable {
 
-    public init(timestamp: Date, level: LoggerLevel, environment: AppEnvironment, os_version: String, device: String, version: String, build: Int, data: [String: String]) {
+    public init(timestamp: Date, level: LoggerLevel, message: String, environment: AppEnvironment, os_version: String, device: String, version: String, build: Int, data: [String: String]) {
         self.timestamp = timestamp
         self.level = level
+        self.message = message
         self.environment = environment
         self.os_version = os_version
         self.device = device
@@ -24,6 +25,7 @@ public struct LogModel: Codable, Hashable {
     public var id: Int?
     public let timestamp: Date
     public let level: LoggerLevel
+    public let message: String
     public let environment: AppEnvironment
     public let os_version: String
     public let device: String
